@@ -1,4 +1,4 @@
-# decktracker
+# Decktracker
 another portfolio tracking and analysis tool
 
 ## 目标
@@ -23,8 +23,9 @@ another portfolio tracking and analysis tool
 ## 其他
 
 一次Python规范编程实践。
-1. 遵循Python编程哲学
+1. 遵循Python编程哲学。
 2. 成为规范共享的第三方模块。
+3. 编写完善的文档和单元测试。
 
 主要参考书籍：
 1. The Hacker's Guide to Python
