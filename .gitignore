@@ -1,4 +1,10 @@
 # Created by .ignore support plugin (hsz.mobi)
+
+### Decktracker template
+
+config.ini
+
+
 ### MicrosoftOffice template
 *.tmp
 
@@ -405,8 +411,6 @@ pip-selfcheck.json
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-
-config.ini
 
 ## User settings
 xcuserdata/
