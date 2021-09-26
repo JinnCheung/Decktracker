@@ -3,7 +3,7 @@
 ### Decktracker template
 
 config.ini
-
+*.feather
 
 ### MicrosoftOffice template
 *.tmp
