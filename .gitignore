@@ -5,6 +5,7 @@
 config.toml
 *.feather
 *.parquet
+*.db
 
 ### MicrosoftOffice template
 *.tmp
