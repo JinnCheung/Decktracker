@@ -21,7 +21,7 @@ def create_table():
 
     with conn:
         cur = conn.cursor()
-        cur.execute("CREATE TABLE user(id  VARCHAR(20) PRIMARY KEY, name VARCHAR(20))")
+        cur.execute("CREATE TABLE user4(id INTEGER PRIMARY KEY, name VARCHAR(20))")
 
 
 def insert_row():
@@ -30,7 +30,8 @@ def insert_row():
     conn = sqlite3.connect(os.path.join(data_folder, 'test.db'))
     with conn:
         cur = conn.cursor()
-        cur.execute("INSERT INTO user VALUES(1,'Michael')")
+        cur.execute("INSERT INTO user4(name) VALUES('Jinn Cheung')")
+        print(cur.lastrowid)
 
 
 def query():
@@ -45,7 +46,7 @@ def query():
 
         print("SQLite version: %s" % data)
 
-        cur.execute('SELECT * FROM user')
+        cur.execute('SELECT * FROM user4')
 
         for row in cur.fetchall():
             print("%s %s" % (row[0], row[1]))
@@ -56,6 +57,7 @@ if __name__ == '__main__':
     # print(sqlite3.sqlite_version)
     # print(os.path.abspath(os.path.dirname(os.getcwd())))
     # print(os.path.abspath(os.path.join(os.path.dirname(__file__))))
-    insert_row()
+    # insert_row()
     # create_table()
+    insert_row()
     query()

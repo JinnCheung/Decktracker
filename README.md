@@ -29,3 +29,22 @@ another portfolio tracking and analysis tool
 
 主要参考书籍：
 1. The Hacker's Guide to Python
+
+## 指定格式
+
+- 日期格式，"%Y%m%d"
+- 股票格式，"SZ000001"
+- 数据文件格式，"CONTENT.20201231.parquet"
+
+## 使用
+
+1. 从命令行中输入
+   - `python -m decktracker --show[-s] all` 列出所有组合名称和简介。
+   - `python -m decktracker --show[-s] portfolio_name` 列出 portfolio_name 组合的持仓情况。
+
+2. 从其他程序用引用decktracker的数据
+    ```python
+    import decktracker as dtk
+    
+
+    ```

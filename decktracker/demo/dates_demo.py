@@ -7,12 +7,6 @@ more description
 
 :Project: https://github.com/JinnCheung/Decktracker
 :Author: Jinn Cheung
-:Date: 2021/9/28 19:16 
+:Date: 2021/9/28 13:50 
 """
-
-from decktracker.log import log
-
-
-if __name__ == '__main__':
-
-    log.error("fuck")
+from datetime import datetime as dt, date, timedelta

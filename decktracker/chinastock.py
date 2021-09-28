@@ -7,12 +7,12 @@ more description
 
 :Project: https://github.com/JinnCheung/Decktracker
 :Author: Jinn Cheung
-:Date: 2021/9/28 19:16 
+:Date: 2021/9/28 13:55 
 """
 
-from decktracker.log import log
+from decktracker import config
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    print(config)
 
-    log.error("fuck")

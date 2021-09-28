@@ -4,3 +4,5 @@ coloredlogs~=15.0.1
 toml~=0.10.2
 pyarrow~=5.0.0
 redis~=3.5.3
+tushare~=1.2.64
+requests~=2.26.0

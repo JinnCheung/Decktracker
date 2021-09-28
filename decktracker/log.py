@@ -23,14 +23,15 @@ import logging
 import coloredlogs
 
 log = logging.getLogger(name="decktracker")
-
-log.setLevel(logging.getLevelName('DEBUG'))
+level = 'INFO'
+log.setLevel(logging.getLevelName(level))
 
 log_format = '%(asctime)s - %(levelname)s : %(message)s'
-coloredlogs.install(level='DEBUG', fmt=log_format)
+coloredlogs.install(level=level, fmt=log_format)
 
 fileHandler = logging.FileHandler(os.path.join(os.getcwd(), 'debug.log'))
-fileHandler.setLevel(logging.getLevelName('INFO'))
+fileHandler.setLevel(logging.getLevelName(level))
 fileHandler.setFormatter(logging.Formatter(fmt=log_format, datefmt='%Y-%m-%d %H:%M:%S'))
 
 log.addHandler(fileHandler)
+
