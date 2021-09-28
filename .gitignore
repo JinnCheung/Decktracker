@@ -2,8 +2,9 @@
 
 ### Decktracker template
 
-config.ini
+config.toml
 *.feather
+*.parquet
 
 ### MicrosoftOffice template
 *.tmp

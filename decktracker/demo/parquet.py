@@ -10,15 +10,13 @@ more description
 :Date: 2021/9/27 00:01 
 """
 
-import feather
+from pyarrow import feather
+import pyarrow as pa
+import pyarrow.parquet as pq
 import pandas as pd
 import numpy as np
 
-# import os
-# os.chdir(r'C:\Users\111\Desktop')
-
 if __name__ == '__main__':
-
     np.random.seed = 2021
     df_size = 10000000
 
@@ -28,7 +26,13 @@ if __name__ == '__main__':
         'c': np.random.rand(df_size),
         'd': np.random.rand(df_size),
         'e': np.random.rand(df_size)
-        })
-    df.head()
-
-    feather.write_dataframe(df, 'data.feather')
+    })
+    print(df.head(10))
+    table = pa.Table.from_pandas(df)
+    pq.write_table(table, 'data.parquet')
+    df2 = pq.read_pandas('data.parquet', columns=['a']).to_pandas()
+    print(df2.head(10))
+    # # feather.write_dataframe(df, 'data.feather')
+    # # df2 = feather.read_dataframe('data.feather')
+    #
+    # print(df2.sample(100))

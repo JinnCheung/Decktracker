@@ -1,0 +1,7 @@
+title = "Decktracker Config File"
+
+[base]
+root_folder = ''
+data_folder = 'data'
+
+[tushare]
