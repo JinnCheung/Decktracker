@@ -1,7 +1,0 @@
-title = "Decktracker Config File"
-
-[folders]
-root_folder = ''
-data_folder = 'data'
-
-[tushare]
