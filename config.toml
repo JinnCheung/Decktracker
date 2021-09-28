@@ -1,6 +1,6 @@
 title = "Decktracker Config File"
 
-[base]
+[folders]
 root_folder = ''
 data_folder = 'data'
 

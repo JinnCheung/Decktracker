@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-"""A simple introdution
-
-more description
+"""A toml demo
 
 :Project: https://github.com/JinnCheung/Decktracker
 :Author: Jinn Cheung
@@ -12,17 +10,8 @@ more description
 import os
 import toml
 
-# script_folder = os.path.abspath(os.path.dirname(__file__))
-# package_folder = os.path.abspath(os.path.dirname(script_folder))
-# project_folder = os.path.abspath(os.path.dirname(package_folder)) if config.get('base').get('root_folder') == '.'
-#
-# config_file =
-#
-# os.path.join(project_folder, 'config.toml')
-#
-#
 if __name__ == "__main__":
-    custom_config_file = ""
+    custom_config_file = "/Users/ourob/Public/Decktracker/config.toml"
     default_config_file = os.path.abspath(os.path.join(os.path.dirname(__file__), 'config.toml'))
     if os.path.exists(custom_config_file):
         config_file = custom_config_file
@@ -42,4 +31,3 @@ if __name__ == "__main__":
 
     if not os.path.exists(data_folder):
         os.makedirs(data_folder)
-
