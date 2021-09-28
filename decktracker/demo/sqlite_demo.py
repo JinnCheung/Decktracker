@@ -18,32 +18,19 @@ def create_table():
     # 连接到SQLite数据库
     # 如果文件不存在，会自动创建:
     conn = sqlite3.connect(os.path.join(data_folder, 'test.db'))
-    # 创建一个Cursor:
-    cursor = conn.cursor()
-    # 执行一条SQL语句，创建user表:
-    cursor.execute('create table user (id varchar(20) primary key, name varchar(20))')
-    # 关闭Cursor:
-    cursor.close()
-    # 提交事务:
-    conn.commit()
-    # 关闭Connection:
-    conn.close()
+
+    with conn:
+        cur = conn.cursor()
+        cur.execute("CREATE TABLE user(id  VARCHAR(20) PRIMARY KEY, name VARCHAR(20))")
 
 
 def insert_row():
     # 连接到SQLite数据库
     # 如果文件不存在，会自动创建:
     conn = sqlite3.connect(os.path.join(data_folder, 'test.db'))
-    # 创建一个Cursor:
-    cursor = conn.cursor()
-    # 继续执行一条SQL语句，插入一条记录:
-    cursor.execute('insert into user (id, name) values (\'1\', \'Michael\')')
-    # 关闭Cursor:
-    cursor.close()
-    # 提交事务:
-    conn.commit()
-    # 关闭Connection:
-    conn.close()
+    with conn:
+        cur = conn.cursor()
+        cur.execute("INSERT INTO user VALUES(1,'Michael')")
 
 
 def query():
@@ -69,5 +56,6 @@ if __name__ == '__main__':
     # print(sqlite3.sqlite_version)
     # print(os.path.abspath(os.path.dirname(os.getcwd())))
     # print(os.path.abspath(os.path.join(os.path.dirname(__file__))))
-    # insert_row()
+    insert_row()
+    # create_table()
     query()
