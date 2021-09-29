@@ -7,21 +7,41 @@ data = 'data'
 [tushare]
 token = 'eac2dfd8378cc20be48580065f31e1f4f001998275b79ee15d2b7086'
 
-    [tushare.api]
+    [tushare.api.trade_cal.params]
+    exchange = "N" # 字符串，非必选，交易所 SSE上交所,SZSE深交所,CFFEX 中金所,SHFE 上期所,CZCE 郑商所,DCE 大商所,INE 上能源
+    start_date = "N" # 字符串，非必选，开始日期 （格式：YYYYMMDD 下同）
+    end_date = "N" # 字符串，非必选，结束日期
+    is_open = "N" # 字符串，非必选，是否交易 '0'休市 '1'交易
 
-        # 输入参数
-        [tushare.api.trade_cal.params]
-        exchange = "N" # 字符串，非必选，交易所 SSE上交所,SZSE深交所,CFFEX 中金所,SHFE 上期所,CZCE 郑商所,DCE 大商所,INE 上能源
-        start_date = "N" # 字符串，非必选，开始日期 （格式：YYYYMMDD 下同）
-        end_date = "N" # 字符串，非必选，结束日期
-        is_open = "N" # 字符串，非必选，是否交易 '0'休市 '1'交易
-        # 输出参数
-        [tushare.api.trade_cal.fields]
-        exchange = "Y"
-        cal_date = "Y" # 日历日期
-        is_open = "Y" # 是否交易 0休市 1交易
-        pretrade_date = "N" # 上一个交易日
-        # 输入参数
-        [tushare.api.stock_basic.params]
-        # 输出参数
-        [tushare.api.stock_basic.fields]
+    [tushare.api.trade_cal.fields]
+    exchange = "Y"
+    cal_date = "Y" # 日历日期
+    is_open = "Y" # 是否交易 0休市 1交易
+    pretrade_date = "N" # 上一个交易日
+
+    [tushare.api.stock_basic.params]
+    is_hs = "N" # 是否沪深港通标的，N否 H沪股通 S深股通
+    list_status = "N" # 上市状态 L上市 D退市 P暂停上市，默认是L
+    exchange = "N" # 交易所 SSE上交所 SZSE深交所
+    ts_code = "N" # TS股票代码
+    market = "N" # 市场类别
+    limit = 0
+    offset = 0
+    name = "N" # 名称
+
+    [tushare.api.stock_basic.fields]
+    ts_code = "Y" # TS代码
+    symbol = "Y" # 股票代码
+    name = "Y" # 股票名称
+    area = "Y" # 地域
+    industry = "Y" # 所属行业
+    fullname = "N" # 股票全称
+    enname = "N" # 英文全称
+    cnspell = "N" # 拼音缩写
+    market = "Y" # 市场类型（主板/创业板/科创板/CDR）
+    exchange = "N" #交易所代码
+    curr_type = "N" #交易货币
+    list_status = "N" #上市状态 L上市 D退市 P暂停上市
+    list_date = "Y" #上市日期
+    delist_date = "N" #退市日期
+    is_hs = "N" #是否沪深港通标的，N否 H沪股通 S深股通

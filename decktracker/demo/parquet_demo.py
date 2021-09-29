@@ -12,6 +12,7 @@ more description
 
 from pyarrow import feather
 import pyarrow as pa
+from pyarrow import Table
 import pyarrow.parquet as pq
 import pandas as pd
 import numpy as np
@@ -28,7 +29,8 @@ if __name__ == '__main__':
         'e': np.random.rand(df_size)
     })
     print(df.head(10))
-    table = pa.Table.from_pandas(df)
+    t = Table()
+    table = t.from_pandas(type_cls=type_cls, df=df)
     pq.write_table(table, 'data.parquet')
     df2 = pq.read_pandas('data.parquet', columns=['a']).to_pandas()
     print(df2.head(10))

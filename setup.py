@@ -10,9 +10,9 @@ more description
 :Date: 2021/9/28 19:16 
 """
 
-from decktracker.log import log
+from decktracker.chinastock import basic
 
 
 if __name__ == '__main__':
 
-    log.error("fuck")
+    basic()

@@ -20,8 +20,8 @@ Modules:
 import os
 import argparse
 import toml
-from requests.exceptions import ConnectionError
 import tushare
+import pandas as pd
 
 
 def load_toml_config(args_config_file: str) -> dict:
@@ -60,10 +60,9 @@ args = get_args()
 
 config = load_toml_config(args.config_file)
 
-data_folder = config.get('folders').get('data')
-
 ts_api = tushare.pro_api(config.get('tushare').get('token'))
 
+# from requests.exceptions import ConnectionError
 # try:
 #     pro.trade_cal(exchange='', start_date='20210101', end_date='20210101')
 #     print("Tushare Connected.")
@@ -72,6 +71,17 @@ ts_api = tushare.pro_api(config.get('tushare').get('token'))
 # except Exception as e:
 #     print("Tushare Connect Fail: %s" % e.args[0])
 
+# === Pandas 设置 ===
+# 设置线程数，关闭默认提示
+os.environ['NUMEXPR_NUM_THREADS'] = '8'
+pd.set_option('display.max_rows', 120)
+pd.set_option('display.min_rows', 20)
+pd.set_option('display.max_columns', 100)
+pd.set_option('display.width', 1000)
+pd.set_option('display.max_colwidth', 1000)
+pd.set_option('display.unicode.ambiguous_as_wide', True)
+pd.set_option('display.unicode.east_asian_width', True)
+pd.set_option('expand_frame_repr', False)
 if __name__ == '__main__':
     # df = pro.query('trade_cal')
     print(data_folder)

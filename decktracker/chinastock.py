@@ -9,9 +9,61 @@ more description
 :Author: Jinn Cheung
 :Date: 2021/9/28 13:55 
 """
-
+import time
+import os
+from itertools import product
+from pyarrow import Table
+import pyarrow.parquet as pq
+import pandas as pd
 from decktracker import config, ts_api
 from pprint import pp
+
+
+def gen_kwlist(params: dict) -> list:
+    """generate a list of key-word parameter for an api
+
+    :param params: api preset params
+    :return: a list of key-words for send to api
+    """
+    no_iter_params = dict()
+    iter_params = list()
+
+    for k, v in params.items():
+        if isinstance(v, list):
+            iter_params.append([{k: i} for i in v])
+        else:
+            if bool(v):
+                no_iter_params.update({k: v})
+
+    if len(iter_params) > 0:
+        kwlist = list()
+        for i in product(*iter_params):
+            combine_dict = dict()
+            for d in i:
+                combine_dict = dict(combine_dict, **d)
+            kwlist.append(combine_dict)
+
+        return [dict(kw, **no_iter_params) for kw in kwlist]
+    else:
+        return [no_iter_params]
+
+
+def load_stock_basic():
+    api_setting = config.get('tushare').get('api').get('stock_basic')
+    stock_basic_local = os.path.abspath(os.path.join(config.get('folders').get('data'), 'stock_basic.parquet'))
+    params = gen_kwlist(api_setting.get("params"))[0]
+    fields = api_setting.get("fields")
+    params.update({'fields': ','.join(fields.keys())})
+
+    dataframe = ts_api.query('stock_basic', **params)
+    table = Table.from_pandas(df=dataframe)
+    pq.write_table(table, stock_basic_local)
+
+
+def get_local_stock_basic():
+    stock_basic_local = os.path.abspath(os.path.join(config.get('folders').get('data'), 'stock_basic.parquet'))
+    return pq.read_pandas(stock_basic_local, columns=['ts_code', 'list_date']).to_pandas()
+
 
 """
 请求一日的数据，获取全部当日全部数据。
@@ -29,4 +81,9 @@ Parquet不支持多次写入，因此写两种方法
 """
 
 if __name__ == "__main__":
-    pp(config.get("tushare").get("api"))
+    stock_basic_local = os.path.abspath(os.path.join(config.get('folders').get('data'), 'stock_basic.parquet'))
+
+    t
+    table = Table.from_pandas(df=dataframe)
+    pq.write_table(table, stock_basic_local)
+    # print(get_local_stock_basic())
