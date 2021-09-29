@@ -1,23 +1,27 @@
 title = "Decktracker Config File"
 
 [folders]
-root_folder = ''
-data_folder = 'data'
+root = ''
+data = 'data'
 
 [tushare]
-token = 'YOUR TUSHARE TOKEN'
+token = 'eac2dfd8378cc20be48580065f31e1f4f001998275b79ee15d2b7086'
 
-    [tushare.trade_cal]
+    [tushare.api]
 
         # 输入参数
-        [tushare.trade_cal.params]
+        [tushare.api.trade_cal.params]
         exchange = "N" # 字符串，非必选，交易所 SSE上交所,SZSE深交所,CFFEX 中金所,SHFE 上期所,CZCE 郑商所,DCE 大商所,INE 上能源
         start_date = "N" # 字符串，非必选，开始日期 （格式：YYYYMMDD 下同）
         end_date = "N" # 字符串，非必选，结束日期
         is_open = "N" # 字符串，非必选，是否交易 '0'休市 '1'交易
-        # 输参数
-        [tushare.trade_cal.fields]
+        # 输出参数
+        [tushare.api.trade_cal.fields]
         exchange = "Y"
         cal_date = "Y" # 日历日期
         is_open = "Y" # 是否交易 0休市 1交易
         pretrade_date = "N" # 上一个交易日
+        # 输入参数
+        [tushare.api.stock_basic.params]
+        # 输出参数
+        [tushare.api.stock_basic.fields]

@@ -29,9 +29,9 @@ log.setLevel(logging.getLevelName(level))
 log_format = '%(asctime)s - %(levelname)s : %(message)s'
 coloredlogs.install(level=level, fmt=log_format)
 
-fileHandler = logging.FileHandler(os.path.join(os.getcwd(), 'debug.log'))
+fileHandler = logging.FileHandler(
+    os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'debug.log'))
 fileHandler.setLevel(logging.getLevelName(level))
 fileHandler.setFormatter(logging.Formatter(fmt=log_format, datefmt='%Y-%m-%d %H:%M:%S'))
 
 log.addHandler(fileHandler)
-

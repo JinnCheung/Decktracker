@@ -7,7 +7,7 @@ Modules:
     1. __init__.py : Check the configure.
     #. __main__.py : Command line interactive operations.
     #. log.py : Print colored log on commandline/debug.log.
-    #. stock.py : Pull stock data to local HDF file，and offer some query functions.
+    #. chinastock.py : Pull stock data to local Parquet file，and offer some query functions.
     #. fund.py : Pull fund data to local HDF file，and offer some query functions.
     #. delivery.py : Pull fund data to local HDF file，and offer some query functions.
     #. tracker.py : when we sell.
@@ -19,58 +19,62 @@ Modules:
 """
 import os
 import argparse
-from requests.exceptions import ConnectionError
 import toml
+from requests.exceptions import ConnectionError
 import tushare
 
 
-def load_toml_config(folder: str) -> dict:
+def load_toml_config(args_config_file: str) -> dict:
     """load configure of Decktracker
 
     Specify the configuration file in the command line argument, or load it in the default folder.
 
-    :param folder: a folder of config.toml.
+    :param args_config_file: a specify the configuration file.
     :return: a dict of configure.
     """
-    parser = argparse.ArgumentParser(description='Portfolio tracking and analysis tools')
+    project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    parser.add_argument('-c', '--config', metavar='config.toml', dest='config_file', action='store',
-                        help='a configuration file in TOML format.')
-
-    args = parser.parse_args()
-
-    config_file = os.path.abspath(os.path.join(folder, 'config.toml')) if args.config_file is None else args.config_file
+    config_file = os.path.abspath(
+        os.path.join(project_folder, 'config.toml')) if args.config_file is None else args_config_file
 
     if os.path.exists(config_file):
-        return toml.load(config_file)
+        _config = toml.load(config_file)
+        _f1 = _config.get('folders').get('root')
+        _f2 = _config.get('folders').get('data')
+        if bool(_f1) is False:
+            _config.get('folders').update({'root': project_folder})
+        _config.get('folders').update({'data': os.path.abspath(os.path.join(_config.get('folders').get('root'), _f2))})
+        return _config
     else:
         raise FileNotFoundError("%s not found. There is an sample of config.toml in /docs." % config_file)
 
 
-project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+def get_args() -> argparse.ArgumentParser.parse_args:
+    parser = argparse.ArgumentParser(description='Portfolio tracking and analysis tools')
+    parser.add_argument('-c', '--config', metavar='config.toml', dest='config_file', action='store',
+                        help='a configuration file in TOML format.')
+    return parser.parse_args()
 
-config = load_toml_config(project_folder)
 
-folders = config.get('folders')
+args = get_args()
 
-if folders.get('root_folder') == '':
-    folders.update({'root_folder': project_folder})
+config = load_toml_config(args.config_file)
 
-folders.update({'data_folder': os.path.abspath(os.path.join(folders.get('root_folder'), folders.get('data_folder')))})
+data_folder = config.get('folders').get('data')
+
+ts_api = tushare.pro_api(config.get('tushare').get('token'))
 
 # try:
-#     pro = tushare.pro_api(config.get('tushare').get('token'))
 #     pro.trade_cal(exchange='', start_date='20210101', end_date='20210101')
-#     # pro.hk_daily(ts_code='00001.HK', start_date='20210101', end_date='20210901')
 #     print("Tushare Connected.")
 # except ConnectionError as e:
 #     print("Tushare Connect Fail.")
 # except Exception as e:
 #     print("Tushare Connect Fail: %s" % e.args[0])
-#
-# if __name__ == '__main__':
-#     df = pro.query('trade_cal')
-#     print(df)
+
+if __name__ == '__main__':
+    # df = pro.query('trade_cal')
+    print(data_folder)
 
 """
 1. 数据准备（__init__.py）
